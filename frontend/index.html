@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,8 +30,6 @@
         class="screen language-screen"
     >
 
-        <!-- Nature background -->
-
         <div class="nature-scene">
 
             <div class="sun"></div>
@@ -52,8 +51,6 @@
 
         </div>
 
-
-        <!-- Language card -->
 
         <div class="language-card">
 
@@ -119,12 +116,10 @@
 
         <div class="home-container">
 
-
-            <!-- Left side -->
-
             <div class="home-content">
 
                 <div class="home-brand">
+
                     <div class="brand-mark">
                         W
                     </div>
@@ -132,6 +127,7 @@
                     <span>
                         WaitLess
                     </span>
+
                 </div>
 
 
@@ -157,9 +153,15 @@
                         onclick="showCitizenScreen()"
                         id="citizenButton"
                     >
-                        <span class="button-icon">●</span>
+                        <span class="button-icon">
+                            ●
+                        </span>
+
                         I'm a Citizen
-                        <span>→</span>
+
+                        <span>
+                            →
+                        </span>
                     </button>
 
 
@@ -168,9 +170,15 @@
                         onclick="showStaffScreen()"
                         id="staffButton"
                     >
-                        <span class="button-icon">◉</span>
+                        <span class="button-icon">
+                            ◉
+                        </span>
+
                         I'm Staff
-                        <span>→</span>
+
+                        <span>
+                            →
+                        </span>
                     </button>
 
                 </div>
@@ -187,9 +195,6 @@
             </div>
 
 
-
-            <!-- Right illustration -->
-
             <div class="home-illustration">
 
                 <div class="illustration-glow"></div>
@@ -202,8 +207,8 @@
                             Now Serving
                         </span>
 
-                        <strong>
-                            A-017
+                        <strong id="homeNowServing">
+                            —
                         </strong>
 
                     </div>
@@ -223,6 +228,7 @@
 
                     <div class="chair"></div>
 
+
                     <div class="plant">
 
                         <div class="plant-leaf leaf-one"></div>
@@ -235,13 +241,17 @@
 
 
                     <div class="wall-clock">
+
                         <div class="clock-hand"></div>
+
                     </div>
 
 
                     <div class="window">
+
                         <div></div>
                         <div></div>
+
                     </div>
 
                 </div>
@@ -266,31 +276,34 @@
         <div class="citizen-layout">
 
 
-            <!-- Top bar -->
+            <!-- TOP BAR -->
 
             <div class="page-topbar">
 
                 <button
-    onclick="goHome()"
-    class="top-back"
-    id="backButton"
->
-    ← &nbsp; Back
-</button>
+                    onclick="goHome()"
+                    class="top-back"
+                    id="backButton"
+                >
+                    ← &nbsp; Back
+                </button>
+
 
                 <div class="mini-brand">
+
                     <div class="brand-mark">
                         W
                     </div>
 
                     WaitLess
+
                 </div>
 
             </div>
 
 
 
-            <!-- Citizen card -->
+            <!-- CITIZEN CARD -->
 
             <div class="citizen-card">
 
@@ -299,6 +312,7 @@
                     <div class="heading-icon">
                         ●
                     </div>
+
 
                     <div>
 
@@ -317,7 +331,7 @@
 
 
 
-                <!-- Name -->
+                <!-- NAME -->
 
                 <div class="modern-form-group">
 
@@ -327,6 +341,7 @@
                     >
                         Full Name
                     </label>
+
 
                     <div class="input-wrapper">
 
@@ -347,7 +362,7 @@
 
 
 
-                <!-- Mobile -->
+                <!-- MOBILE -->
 
                 <div class="modern-form-group">
 
@@ -357,6 +372,7 @@
                     >
                         Mobile Number
                     </label>
+
 
                     <div class="input-wrapper">
 
@@ -380,7 +396,7 @@
 
 
 
-                <!-- Location -->
+                <!-- LOCATION -->
 
                 <div class="modern-form-group">
 
@@ -391,11 +407,13 @@
                         Service Location
                     </label>
 
+
                     <div class="input-wrapper">
 
                         <span class="input-icon">
                             ◉
                         </span>
+
 
                         <select
                             id="locationSelect"
@@ -422,7 +440,7 @@
 
 
 
-                <!-- Service -->
+                <!-- SERVICE -->
 
                 <div class="modern-form-group">
 
@@ -433,11 +451,13 @@
                         Service
                     </label>
 
+
                     <div class="input-wrapper">
 
                         <span class="input-icon">
                             ▣
                         </span>
+
 
                         <select id="serviceSelect">
 
@@ -453,16 +473,24 @@
 
 
 
-                <!-- Get Token -->
+                <!-- GET TOKEN -->
 
                 <button
                     onclick="getToken()"
                     id="getTokenButton"
                     class="get-token-button"
                 >
-                    <span>🎟</span>
+
+                    <span>
+                        🎟
+                    </span>
+
                     Get Token
-                    <span>→</span>
+
+                    <span>
+                        →
+                    </span>
+
                 </button>
 
             </div>
@@ -485,7 +513,7 @@
         <div class="queue-layout">
 
 
-            <!-- Header -->
+            <!-- HEADER -->
 
             <div class="queue-topbar">
 
@@ -499,6 +527,7 @@
 
                 </div>
 
+
                 <button
                     onclick="goHome()"
                     class="top-back"
@@ -510,34 +539,43 @@
 
 
 
-            <!-- Queue card -->
+            <!-- QUEUE CARD -->
 
             <div class="queue-card-modern">
 
 
-                <!-- Success -->
+                <!-- SUCCESS -->
 
                 <div class="success-icon">
                     ✓
                 </div>
 
 
-                <h2 class="queue-success" id="queueSuccess">
-    You're in the queue!
-</h2>
+                <h2
+                    class="queue-success"
+                    id="queueSuccess"
+                >
+                    You're in the queue!
+                </h2>
 
 
-                <!-- Token -->
+
+                <!-- TOKEN -->
 
                 <div class="token-panel">
 
-                   
-<span class="token-label" id="yourTokenLabel">
-    Your Token
-</span>
+                    <span
+                        class="token-label"
+                        id="yourTokenLabel"
+                    >
+                        Your Token
+                    </span>
+
+
                     <h1 id="tokenNumber">
-                        A-024
+                        —
                     </h1>
+
 
                     <p id="citizenName"></p>
 
@@ -545,7 +583,7 @@
 
 
 
-                <!-- Status -->
+                <!-- STATUS -->
 
                 <div
                     class="queue-status"
@@ -556,9 +594,10 @@
 
 
 
-                <!-- Info -->
+                <!-- INFO -->
 
                 <div class="queue-info-modern">
+
 
                     <div class="queue-info-box">
 
@@ -566,8 +605,8 @@
                             Now Serving
                         </span>
 
-                        <strong>
-                            A-017
+                        <strong id="nowServing">
+                            —
                         </strong>
 
                     </div>
@@ -580,7 +619,7 @@
                         </span>
 
                         <strong id="peopleAhead">
-                            7
+                            0
                         </strong>
 
                     </div>
@@ -589,7 +628,7 @@
 
 
 
-                <!-- Waiting -->
+                <!-- WAITING TIME -->
 
                 <div class="wait-panel">
 
@@ -598,14 +637,14 @@
                     </span>
 
                     <strong id="waitTime">
-                        35 min
+                        0 min
                     </strong>
 
                 </div>
 
 
 
-                <!-- Progress -->
+                <!-- PROGRESS -->
 
                 <div class="progress-section">
 
@@ -615,9 +654,10 @@
                             Queue Progress
                         </span>
 
-                       <span id="peopleAheadText">
-    7 people ahead
-</span>
+
+                        <span id="peopleAheadText">
+                            0 people ahead
+                        </span>
 
                     </div>
 
@@ -632,15 +672,20 @@
 
 
 
-                <!-- Notification -->
+                <!-- NOTIFICATION -->
 
                 <div
                     class="notification-modern"
                     id="notificationInfo"
                 >
-                    <span>◷</span>
+
+                    <span>
+                        ◷
+                    </span>
+
 
                     <div>
+
                         <strong>
                             We'll notify you before your turn.
                         </strong>
@@ -648,6 +693,7 @@
                         <small>
                             You can wait comfortably until your queue is near.
                         </small>
+
                     </div>
 
                 </div>
@@ -656,7 +702,7 @@
 
 
 
-            <!-- Leave -->
+            <!-- LEAVE QUEUE -->
 
             <button
                 onclick="leaveQueue()"
@@ -670,371 +716,443 @@
 
     </div>
 
-<!-- =====================================================
-     STAFF LOGIN SCREEN
-     ===================================================== -->
 
-<div
-    id="staffLoginScreen"
-    class="screen staff-login-screen hidden"
->
 
-    <div class="staff-login-layout">
+    <!-- =====================================================
+         STAFF LOGIN SCREEN
+         ===================================================== -->
 
-        <!-- Top bar -->
+    <div
+        id="staffLoginScreen"
+        class="screen staff-login-screen hidden"
+    >
 
-        <div class="page-topbar">
+        <div class="staff-login-layout">
 
-            <button
-                onclick="goHome()"
-                class="top-back"
-            >
-                ← &nbsp; Back
-            </button>
 
-            <div class="mini-brand">
+            <!-- TOP BAR -->
 
-                <div class="brand-mark">
-                    W
+            <div class="page-topbar">
+
+                <button
+                    onclick="goHome()"
+                    class="top-back"
+                >
+                    ← &nbsp; Back
+                </button>
+
+
+                <div class="mini-brand">
+
+                    <div class="brand-mark">
+                        W
+                    </div>
+
+                    WaitLess
+
                 </div>
-
-                WaitLess
 
             </div>
 
-        </div>
 
 
-        <!-- Login card -->
+            <!-- LOGIN CARD -->
 
-        <div class="staff-login-card">
-
-           
-
-            <h1>
-                Welcome back
-            </h1>
-
-            <p>
-                Enter your staff credentials to continue.
-            </p>
+            <div class="staff-login-card">
 
 
-            <!-- Username -->
+                <h1>
+                    Welcome back
+                </h1>
 
-            <div class="modern-form-group">
 
-                <label for="staffUsername">
-                    Username
-                </label>
+                <p>
+                    Enter your staff credentials to continue.
+                </p>
 
-                <div class="input-wrapper">
 
-                    <span class="input-icon">
-                        ◯
+
+                <!-- USERNAME -->
+
+                <div class="modern-form-group">
+
+                    <label for="staffUsername">
+                        Username
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ◯
+                        </span>
+
+
+                        <input
+                            type="text"
+                            id="staffUsername"
+                            value="staff"
+                            readonly
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="modern-form-group">
+
+                    <label for="staffPassword">
+                        Password
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ◯
+                        </span>
+
+
+                        <input
+                            type="password"
+                            id="staffPassword"
+                            placeholder="Enter password"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CONTINUE -->
+
+                <button
+                    onclick="staffLogin()"
+                    class="get-token-button"
+                >
+
+                    Continue
+
+                    <span>
+                        →
                     </span>
 
-                    <input
-                        type="text"
-                        id="staffUsername"
-                        value="staff"
-                        readonly
-                    >
-
-                </div>
+                </button>
 
             </div>
-
-
-            <!-- Password -->
-
-            <div class="modern-form-group">
-
-                <label for="staffPassword">
-                    Password
-                </label>
-
-                <div class="input-wrapper">
-
-                    <span class="input-icon">
-                        ◯
-                    </span>
-
-                    <input
-                        type="password"
-                        id="staffPassword"
-                        placeholder="Enter password"
-                    >
-
-                </div>
-
-            </div>
-
-
-            <!-- Continue -->
-
-            <button
-                onclick="staffLogin()"
-                class="get-token-button"
-            >
-                Continue
-                <span>→</span>
-            </button>
 
         </div>
 
     </div>
 
-</div>
+
 
     <!-- =====================================================
          STAFF DASHBOARD
          ===================================================== -->
 
-   <!-- =====================================================
-     STAFF DASHBOARD
-     ===================================================== -->
+    <div
+        id="staffScreen"
+        class="screen staff-screen hidden"
+    >
 
-<div
-    id="staffScreen"
-    class="screen staff-screen hidden"
->
-
-    <div class="staff-layout">
-
-        <!-- TOP BAR -->
-        <div class="staff-topbar">
-
-            <div class="mini-brand">
-
-                <div class="brand-mark">
-                    W
-                </div>
-
-                <span>WaitLess</span>
-
-            </div>
-
-            <button
-                onclick="goHome()"
-                class="top-back"
-            >
-                ← Back
-            </button>
-
-        </div>
+        <div class="staff-layout">
 
 
-        <!-- HEADING -->
-        <div class="staff-heading">
+            <!-- TOP BAR -->
 
-            <span class="staff-label">
-                STAFF PANEL
-            </span>
+            <div class="staff-topbar">
 
-            <h1>
-                Staff Dashboard
-            </h1>
+                <div class="mini-brand">
 
-            <p>
-                Manage the queue and serve citizens.
-            </p>
-
-        </div>
-
-
-        <!-- CURRENTLY SERVING -->
-        <div class="current-serving-card">
-
-            <div class="serving-left">
-
-                <div class="serving-icon">
-                    ●
-                </div>
-
-                <div class="serving-info">
+                    <div class="brand-mark">
+                        W
+                    </div>
 
                     <span>
-                        Currently Serving
+                        WaitLess
                     </span>
 
-                    <h2 id="currentToken">
-                        A-017
-                    </h2>
-
-                    <p id="currentCitizenName">
-                        Rohan Mehta
-                    </p>
-
-                    <p id="currentCitizenMobile">
-                        📱 98XXXXXX21
-                    </p>
-
-                    <small id="counterLabel">
-                        Counter 1
-                    </small>
-
                 </div>
+
+
+                <button
+                    onclick="goHome()"
+                    class="top-back"
+                >
+                    ← Back
+                </button>
 
             </div>
 
 
-            <button
-                onclick="callNext()"
-                id="nextButton"
-                class="call-next-button"
-            >
-                <span>
-                    ☎ &nbsp; Call Next
+
+            <!-- HEADING -->
+
+            <div class="staff-heading">
+
+                <span class="staff-label">
+                    STAFF PANEL
                 </span>
 
-                <span>
-                    →
-                </span>
 
-            </button>
-
-        </div>
+                <h1>
+                    Staff Dashboard
+                </h1>
 
 
-        <!-- WAITING QUEUE -->
-        <div class="waiting-card-modern">
-
-            <div class="waiting-header-modern">
-
-                <div>
-
-                    <h2>
-                        Waiting Queue
-                    </h2>
-
-                    <p>
-                        Citizens currently waiting
-                    </p>
-
-                </div>
-
-                <span id="waitingCount">
-                    7 people ahead
-                </span>
+                <p>
+                    Manage the queue and serve citizens.
+                </p>
 
             </div>
 
 
-            <!-- QUEUE TABLE -->
-            <div class="queue-table">
 
-                <!-- TABLE HEADER -->
+            <!-- CURRENTLY SERVING -->
 
-                <div class="queue-table-header">
+            <div class="current-serving-card">
 
-                    <span>
-                        Token
-                    </span>
 
-                    <span>
-                        Citizen
-                    </span>
+                <div class="serving-left">
 
-                    <span>
-                        Mobile
-                    </span>
+                    <div class="serving-icon">
+                        ●
+                    </div>
 
-                    <span>
-                        Service
+
+                    <div class="serving-info">
+
+                        <span>
+                            Currently Serving
+                        </span>
+
+
+                        <h2 id="currentToken">
+                            —
+                        </h2>
+
+
+                        <p id="currentCitizenName">
+                            —
+                        </p>
+
+
+                        <p id="currentCitizenMobile">
+                            —
+                        </p>
+
+
+                        <small id="counterLabel">
+                            Counter 1
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     STAFF ACTION BUTTONS
+                     ================================================= -->
+
+                <div
+                    class="staff-actions"
+                    style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-end;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                    "
+                >
+
+
+                    <!-- CALL NEXT -->
+
+                    <button
+                        type="button"
+                        onclick="callNext()"
+                        id="nextButton"
+                        class="call-next-button"
+                        style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            min-width: 170px;
+                            height: 50px;
+                            padding: 0 18px;
+                            border: none;
+                            border-radius: 10px;
+                            background: #2563eb;
+                            color: #ffffff;
+                            font-size: 14px;
+                            font-weight: 700;
+                            cursor: pointer;
+                            box-sizing: border-box;
+                            transition: 0.2s ease;
+                        "
+                    >
+
+                        <span>
+                            ☎ &nbsp; Call Next
+                        </span>
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+
+                    <!-- COMPLETE -->
+
+                    <button
+                        type="button"
+                        onclick="completeToken()"
+                        id="completeButton"
+                        class="complete-button"
+                        style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            min-width: 130px;
+                            height: 50px;
+                            padding: 0 18px;
+                            border: none;
+                            border-radius: 10px;
+                            background: #16a34a;
+                            color: #ffffff;
+                            font-size: 14px;
+                            font-weight: 700;
+                            cursor: pointer;
+                            box-sizing: border-box;
+                            transition: 0.2s ease;
+                        "
+                    >
+
+                        <span>
+                            ✓
+                        </span>
+
+                        Complete
+
+                    </button>
+
+
+
+                    <!-- SKIP -->
+
+                    <button
+                        type="button"
+                        onclick="skipToken()"
+                        id="skipButton"
+                        class="skip-button"
+                        style="
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 8px;
+                            min-width: 100px;
+                            height: 50px;
+                            padding: 0 18px;
+                            border: 2px solid #dc2626;
+                            border-radius: 10px;
+                            background: #ffffff;
+                            color: #dc2626;
+                            font-size: 14px;
+                            font-weight: 700;
+                            cursor: pointer;
+                            box-sizing: border-box;
+                            transition: 0.2s ease;
+                        "
+                    >
+
+                        <span>
+                            ↷
+                        </span>
+
+                        Skip
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WAITING QUEUE -->
+
+            <div class="waiting-card-modern">
+
+
+                <div class="waiting-header-modern">
+
+                    <div>
+
+                        <h2>
+                            Waiting Queue
+                        </h2>
+
+
+                        <p>
+                            Citizens currently waiting
+                        </p>
+
+                    </div>
+
+
+                    <span id="waitingCount">
+                        0 people waiting
                     </span>
 
                 </div>
 
 
-                <!-- ROW 1 -->
 
-                <div class="queue-table-row">
+                <!-- QUEUE TABLE -->
 
-                    <strong>
-                        A-018
-                    </strong>
-
-                    <span>
-                        Neha Verma
-                    </span>
-
-                    <span>
-                        97XXXXXX45
-                    </span>
-
-                    <span>
-                        OPD Registration
-                    </span>
-
-                </div>
+                <div class="queue-table">
 
 
-                <!-- ROW 2 -->
+                    <!-- TABLE HEADER -->
 
-                <div class="queue-table-row">
+                    <div class="queue-table-header">
 
-                    <strong>
-                        A-019
-                    </strong>
+                        <span>
+                            Token
+                        </span>
 
-                    <span>
-                        Suresh Patel
-                    </span>
+                        <span>
+                            Citizen
+                        </span>
 
-                    <span>
-                        99XXXXXX12
-                    </span>
+                        <span>
+                            Mobile
+                        </span>
 
-                    <span>
-                        OPD Registration
-                    </span>
+                        <span>
+                            Service
+                        </span>
 
-                </div>
-
-
-                <!-- ROW 3 -->
-
-                <div class="queue-table-row">
-
-                    <strong>
-                        A-020
-                    </strong>
-
-                    <span>
-                        Anjali Singh
-                    </span>
-
-                    <span>
-                        98XXXXXX67
-                    </span>
-
-                    <span>
-                        OPD Registration
-                    </span>
-
-                </div>
+                    </div>
 
 
-                <!-- ROW 4 -->
 
-                <div class="queue-table-row">
+                    <!-- DYNAMIC QUEUE ROWS -->
 
-                    <strong>
-                        A-021
-                    </strong>
-
-                    <span>
-                        Rahul Sharma
-                    </span>
-
-                    <span>
-                        96XXXXXX89
-                    </span>
-
-                    <span>
-                        OPD Registration
-                    </span>
+                    <div id="queueTableBody">
+                    </div>
 
                 </div>
 
@@ -1043,8 +1161,6 @@
         </div>
 
     </div>
-
-</div>
 
 
 
@@ -1057,3 +1173,4 @@
 </body>
 
 </html>
+

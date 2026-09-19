@@ -1,3 +1,4 @@
+
 /* =========================================================
    WAITLESS
    Premium Modern UI
@@ -121,10 +122,6 @@ button {
     right: 17%;
 
     opacity: 0.65;
-}
-
-.mount​ain {
-    position: absolute;
 }
 
 .mountain {
@@ -1413,36 +1410,6 @@ button {
     margin-bottom: 45px;
 }
 
-.staff-account {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    color: #334155;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-.staff-avatar {
-    width: 30px;
-    height: 30px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: var(--blue-light);
-
-    color: var(--blue);
-}
-
 .staff-heading {
     display: flex;
 
@@ -1482,6 +1449,11 @@ button {
 
     font-size: 13px;
 }
+
+
+/* =========================================================
+   CURRENTLY SERVING
+   ========================================================= */
 
 .current-serving-card {
     display: flex;
@@ -1528,7 +1500,7 @@ button {
     color: var(--blue);
 }
 
-.serving-left span {
+.serving-info > span {
     display: block;
 
     font-size: 11px;
@@ -1538,7 +1510,7 @@ button {
     margin-bottom: 4px;
 }
 
-.serving-left h2 {
+.serving-info h2 {
     font-size: 48px;
 
     line-height: 1;
@@ -1550,14 +1522,44 @@ button {
     margin-bottom: 5px;
 }
 
-.serving-left p {
+.serving-info p {
     color: var(--muted);
 
     font-size: 12px;
+
+    margin-bottom: 3px;
 }
 
+.serving-info small {
+    display: block;
+
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   STAFF ACTION BUTTONS
+   ========================================================= */
+
+.staff-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+
+/* CALL NEXT */
+
 .call-next-button {
-    width: 205px;
+    width: 175px;
     height: 48px;
 
     display: flex;
@@ -1567,6 +1569,8 @@ button {
     justify-content: space-between;
 
     padding: 0 17px;
+
+    border: none;
 
     border-radius: 10px;
 
@@ -1589,6 +1593,95 @@ button {
     box-shadow:
         0 10px 22px rgba(37, 99, 235, 0.18);
 }
+
+
+/* COMPLETE */
+
+.complete-button {
+    width: 120px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 15px;
+
+    border: 1px solid #bbf7d0;
+
+    border-radius: 10px;
+
+    background: var(--green-light);
+
+    color: var(--green);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+.complete-button:hover {
+    background: #dcfce7;
+
+    border-color: #86efac;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(22, 163, 74, 0.12);
+}
+
+
+/* SKIP */
+
+.skip-button {
+    width: 90px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 6px;
+
+    padding: 0 14px;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: var(--danger);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s ease;
+}
+
+.skip-button:hover {
+    background: #fef2f2;
+
+    border-color: #fca5a5;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(220, 38, 38, 0.10);
+}
+
+
+/* =========================================================
+   WAITING QUEUE
+   ========================================================= */
 
 .waiting-card-modern {
     padding: 25px;
@@ -1641,6 +1734,11 @@ button {
     font-weight: 700;
 }
 
+
+/* =========================================================
+   QUEUE TABLE
+   ========================================================= */
+
 .queue-table {
     border: 1px solid var(--border);
 
@@ -1653,9 +1751,15 @@ button {
 .queue-table-row {
     display: grid;
 
-    grid-template-columns: 110px 1fr 1fr;
+    grid-template-columns:
+        90px
+        minmax(160px, 1fr)
+        minmax(140px, 180px)
+        minmax(180px, 1fr);
 
     align-items: center;
+
+    gap: 20px;
 
     padding: 14px 16px;
 }
@@ -1675,17 +1779,103 @@ button {
 }
 
 .queue-table-row {
+    min-height: 58px;
+
     border-top: 1px solid #eef2f7;
 
     color: var(--muted);
 
     font-size: 12px;
+
+    transition: 0.15s ease;
+}
+
+.queue-table-row:hover {
+    background: #f8fbff;
 }
 
 .queue-table-row strong {
-    color: var(--text);
+    color: var(--blue);
 
     font-size: 14px;
+}
+
+.queue-table-row span:nth-child(2) {
+    color: var(--text);
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   STAFF LOGIN
+   ========================================================= */
+
+.staff-login-screen {
+    background:
+        radial-gradient(
+            circle at 90% 0%,
+            #e2edff,
+            transparent 28%
+        ),
+        var(--bg);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.staff-login-layout {
+    width: min(900px, 100%);
+
+    padding: 30px 25px;
+}
+
+.staff-login-card {
+    width: 450px;
+    max-width: 100%;
+
+    margin: 45px auto 0;
+
+    padding: 38px;
+
+    background: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.08);
+}
+
+.staff-login-card h1 {
+    font-size: 30px;
+
+    letter-spacing: -0.7px;
+
+    color: var(--text);
+
+    margin-bottom: 7px;
+}
+
+.staff-login-card > p {
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin-bottom: 28px;
+}
+
+#staffUsername {
+    color: #64748b;
+
+    background: #f1f5f9;
+
+    cursor: not-allowed;
 }
 
 
@@ -1738,9 +1928,48 @@ button {
 }
 
 
+@media (max-width: 800px) {
+
+    .staff-layout {
+        padding: 25px 20px 45px;
+    }
+
+    .staff-topbar {
+        margin-bottom: 30px;
+    }
+
+    .staff-heading h1 {
+        font-size: 31px;
+    }
+
+    .current-serving-card {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 22px;
+    }
+
+    .staff-actions {
+        width: 100%;
+    }
+
+    .call-next-button,
+    .complete-button,
+    .skip-button {
+        flex: 1;
+        width: auto;
+    }
+
+    .waiting-card-modern {
+        padding: 22px;
+    }
+}
+
+
 @media (max-width: 600px) {
 
-    /* language */
+    /* LANGUAGE */
 
     .language-card {
         padding: 34px 25px;
@@ -1759,7 +1988,7 @@ button {
     }
 
 
-    /* home */
+    /* HOME */
 
     .home-container {
         padding: 30px 18px;
@@ -1795,7 +2024,7 @@ button {
     }
 
 
-    /* citizen */
+    /* CITIZEN */
 
     .citizen-layout {
         padding: 22px 15px;
@@ -1812,7 +2041,7 @@ button {
     }
 
 
-    /* queue */
+    /* QUEUE */
 
     .queue-layout {
         max-width: calc(100% - 22px);
@@ -1833,20 +2062,32 @@ button {
     }
 
 
-    /* staff */
+    /* STAFF */
 
     .staff-screen {
         padding: 25px 15px;
     }
 
+    .staff-layout {
+        padding: 20px 15px 35px;
+    }
+
     .staff-topbar {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
     .staff-heading {
         flex-direction: column;
 
         gap: 15px;
+    }
+
+    .staff-heading h1 {
+        font-size: 28px;
+    }
+
+    .staff-heading p {
+        font-size: 13px;
     }
 
     .staff-heading .top-back {
@@ -1869,597 +2110,44 @@ button {
         gap: 22px;
 
         padding: 22px;
-    }
-
-    .call-next-button {
-        width: 100%;
-    }
-
-    .waiting-card-modern {
-        padding: 18px 12px;
-    }
-
-    .queue-table {
-        overflow-x: auto;
-    }
-
-    .queue-table-header,
-    .queue-table-row {
-        min-width: 480px;
-    }
-}
-
-/* =========================================================
-   STAFF DASHBOARD
-   ========================================================= */
-
-.staff-screen {
-    min-height: 100vh;
-
-    background:
-        radial-gradient(
-            circle at 90% 0%,
-            #e2edff,
-            transparent 25%
-        ),
-        var(--bg);
-
-    padding: 0;
-}
-
-
-/* =========================================================
-   STAFF LAYOUT
-   ========================================================= */
-
-.staff-layout {
-    width: min(1400px, 100%);
-
-    margin: 0 auto;
-
-    padding: 32px 45px 60px;
-}
-
-
-/* =========================================================
-   TOP BAR
-   ========================================================= */
-
-.staff-topbar {
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding-bottom: 24px;
-
-    margin-bottom: 38px;
-
-    border-bottom: 1px solid var(--border);
-}
-
-
-.mini-brand {
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    color: var(--text);
-
-    font-size: 15px;
-
-    font-weight: 800;
-}
-
-
-.mini-brand .brand-mark {
-    width: 34px;
-    height: 34px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-
-    background: var(--blue);
-
-    color: white;
-
-    font-size: 14px;
-
-    font-weight: 800;
-}
-
-
-.top-back {
-    border: none;
-
-    background: transparent;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-
-.top-back:hover {
-    color: var(--blue);
-
-    transform: translateX(-2px);
-}
-
-
-/* =========================================================
-   HEADING
-   ========================================================= */
-
-.staff-heading {
-    width: 100%;
-
-    margin-bottom: 28px;
-}
-
-
-.staff-label {
-    display: inline-block;
-
-    margin-bottom: 8px;
-
-    color: var(--blue);
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    letter-spacing: 1.5px;
-}
-
-
-.staff-heading h1 {
-    margin-bottom: 7px;
-
-    color: var(--text);
-
-    font-size: 36px;
-
-    line-height: 1.1;
-
-    letter-spacing: -1.2px;
-}
-
-
-.staff-heading p {
-    color: var(--muted);
-
-    font-size: 14px;
-}
-
-
-/* =========================================================
-   CURRENTLY SERVING
-   ========================================================= */
-
-.current-serving-card {
-    width: 100%;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 30px;
-
-    padding: 28px 30px;
-
-    margin-bottom: 24px;
-
-    background: white;
-
-    border: 1px solid #cfe0ff;
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 12px 35px rgba(15, 23, 42, 0.05);
-}
-
-
-.serving-left {
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-}
-
-
-.serving-icon {
-    width: 54px;
-    height: 54px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 15px;
-
-    background: var(--blue-light);
-
-    color: var(--blue);
-
-    font-size: 18px;
-}
-
-
-.serving-info > span {
-    display: block;
-
-    margin-bottom: 5px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-
-.serving-info h2 {
-    margin-bottom: 5px;
-
-    color: var(--blue);
-
-    font-size: 48px;
-
-    line-height: 1;
-
-    letter-spacing: -2px;
-}
-
-
-.serving-info p {
-    margin-bottom: 3px;
-
-    color: var(--text);
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-
-.serving-info p:last-of-type {
-    color: var(--muted);
-
-    font-size: 12px;
-
-    font-weight: 500;
-}
-
-
-.serving-info small {
-    display: block;
-
-    margin-top: 7px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   CALL NEXT BUTTON
-   ========================================================= */
-
-.call-next-button {
-    width: 210px;
-    height: 50px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding: 0 18px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background: var(--blue);
-
-    color: white;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-
-.call-next-button:hover {
-    background: var(--blue-dark);
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 24px rgba(37, 99, 235, 0.18);
-}
-
-
-/* =========================================================
-   WAITING QUEUE CARD
-   ========================================================= */
-
-.waiting-card-modern {
-    width: 100%;
-
-    padding: 28px;
-
-    background: white;
-
-    border: 1px solid var(--border);
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 12px 35px rgba(15, 23, 42, 0.05);
-}
-
-
-.waiting-header-modern {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 20px;
-
-    margin-bottom: 20px;
-}
-
-
-.waiting-header-modern h2 {
-    margin-bottom: 4px;
-
-    color: var(--text);
-
-    font-size: 20px;
-
-    letter-spacing: -0.4px;
-}
-
-
-.waiting-header-modern p {
-    color: var(--muted);
-
-    font-size: 12px;
-}
-
-
-.waiting-header-modern > span {
-    padding: 8px 13px;
-
-    border-radius: 20px;
-
-    background: var(--blue-light);
-
-    color: var(--blue);
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    white-space: nowrap;
-}
-
-
-/* =========================================================
-   QUEUE TABLE
-   ========================================================= */
-
-.queue-table {
-    width: 100%;
-
-    overflow: hidden;
-
-    border: 1px solid var(--border);
-
-    border-radius: 13px;
-}
-
-
-.queue-table-header,
-.queue-table-row {
-    display: grid;
-
-    grid-template-columns:
-        90px
-        minmax(160px, 1fr)
-        minmax(140px, 180px)
-        minmax(180px, 1fr);
-
-    align-items: center;
-
-    gap: 20px;
-
-    padding: 15px 18px;
-}
-
-
-.queue-table-header {
-    background: #f8fafc;
-
-    color: var(--muted);
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.6px;
-}
-
-
-.queue-table-row {
-    min-height: 58px;
-
-    border-top: 1px solid #eef2f7;
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    transition: 0.15s ease;
-}
-
-
-.queue-table-row:hover {
-    background: #f8fbff;
-}
-
-
-.queue-table-row strong {
-    color: var(--blue);
-
-    font-size: 14px;
-}
-
-
-.queue-table-row span:nth-child(2) {
-    color: var(--text);
-
-    font-weight: 600;
-}
-
-
-.queue-table-row span:nth-child(3) {
-    color: var(--muted);
-
-    font-size: 12px;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 800px) {
-
-    .staff-layout {
-        padding: 25px 20px 45px;
-    }
-
-
-    .staff-topbar {
-        margin-bottom: 30px;
-    }
-
-
-    .staff-heading h1 {
-        font-size: 31px;
-    }
-
-
-    .current-serving-card {
-        flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 22px;
-    }
-
-
-    .call-next-button {
-        width: 100%;
-    }
-
-
-    .waiting-card-modern {
-        padding: 22px;
-    }
-
-}
-
-
-@media (max-width: 600px) {
-
-    .staff-layout {
-        padding: 20px 15px 35px;
-    }
-
-
-    .staff-topbar {
-        padding-bottom: 18px;
-
-        margin-bottom: 25px;
-    }
-
-
-    .staff-heading {
-        margin-bottom: 22px;
-    }
-
-
-    .staff-heading h1 {
-        font-size: 28px;
-    }
-
-
-    .staff-heading p {
-        font-size: 13px;
-    }
-
-
-    .current-serving-card {
-        padding: 22px;
 
         border-radius: 18px;
     }
-
 
     .serving-left {
         align-items: flex-start;
     }
 
-
     .serving-info h2 {
         font-size: 42px;
     }
 
+    .staff-actions {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 10px;
+
+        width: 100%;
+    }
+
+    .call-next-button {
+        width: 100%;
+
+        grid-column: 1 / -1;
+    }
+
+    .complete-button,
+    .skip-button {
+        width: 100%;
+    }
 
     .waiting-card-modern {
         padding: 18px 12px;
 
         border-radius: 18px;
     }
-
 
     .waiting-header-modern {
         align-items: flex-start;
@@ -2469,118 +2157,17 @@ button {
         gap: 10px;
     }
 
-
     .queue-table {
         overflow-x: auto;
     }
-
 
     .queue-table-header,
     .queue-table-row {
         min-width: 680px;
     }
 
-}
 
-
-
-/* =========================================================
-   STAFF LOGIN
-   ========================================================= */
-
-.staff-login-screen {
-    background:
-        radial-gradient(
-            circle at 90% 0%,
-            #e2edff,
-            transparent 28%
-        ),
-        var(--bg);
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-}
-
-.staff-login-layout {
-    width: min(900px, 100%);
-    padding: 30px 25px;
-}
-
-.staff-login-card {
-    width: 450px;
-    max-width: 100%;
-
-    margin: 45px auto 0;
-
-    padding: 38px;
-
-    background: white;
-
-    border: 1px solid var(--border);
-
-    border-radius: 24px;
-
-    box-shadow:
-        0 25px 60px rgba(15, 23, 42, 0.08);
-}
-
-.login-icon {
-    width: 50px;
-    height: 50px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 18px;
-
-    border-radius: 14px;
-
-    background: var(--blue-light);
-
-    color: var(--blue);
-
-    font-size: 18px;
-}
-
-.staff-login-card h1 {
-    font-size: 30px;
-
-    letter-spacing: -0.7px;
-
-    color: var(--text);
-
-    margin-bottom: 7px;
-}
-
-.staff-login-card > p {
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.5;
-
-    margin-bottom: 28px;
-}
-
-
-/* Fixed username */
-
-#staffUsername {
-    color: #64748b;
-
-    background: #f1f5f9;
-
-    cursor: not-allowed;
-}
-
-
-/* Mobile */
-
-@media (max-width: 600px) {
+    /* STAFF LOGIN */
 
     .staff-login-layout {
         padding: 22px 15px;
@@ -2598,3 +2185,4 @@ button {
         font-size: 26px;
     }
 }
+
