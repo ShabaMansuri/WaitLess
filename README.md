@@ -632,3 +632,24 @@ AI-assisted development was used during the project for development guidance, de
 **WaitLess – Digital Queue Management System**
 
 > **Don't wait. Know your turn.**
+
+## Team Contributions
+
+### Shaba Mansuri - Team Leader
+- OpenSearch database integration and persistent token storage
+- Backend modularization and final backend integration
+- Frontend to backend integration
+- Final testing, debugging, and project integration
+- Final documentation and submission preparation
+
+### Safa Mansuri - Team Member
+- Initial FastAPI backend development
+- Initial API endpoint implementation
+- Queue management and ETA logic
+- Token serving, completion, skip, and leave-queue API logic
+- API testing during the initial backend development
+
+### Yasira Vora - Team Member
+- Contributed to the frontend development and testing of the WaitLess user interface, including user-facing queue interactions and usability testing.
+
+> The contributions above are based on the work actually completed during the project.
