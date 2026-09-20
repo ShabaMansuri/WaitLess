@@ -1,41 +1,71 @@
 from pydantic import BaseModel
 
+from database import (
+    get_all_tokens,
+    get_token,
+    save_token,
+    update_token,
+    delete_token,
+)
+
 
 class TokenRequest(BaseModel):
     name: str
     mobile: str
-    location: str
     service: str
 
 
-tokens = []
-current_token = 0
+def get_next_token_number():
+    tokens = get_all_tokens()
+
+    if not tokens:
+        return 1
+
+    return max(int(token["token"]) for token in tokens) + 1
 
 
 def create_token(data: TokenRequest):
-    global current_token
+    token_number = get_next_token_number()
 
-    current_token += 1
-
-    new_token = {
-        "token": current_token,
+    token_data = {
+        "token": token_number,
         "name": data.name,
         "mobile": data.mobile,
-        "location": data.location,
         "service": data.service,
         "status": "waiting",
-        "start_time": None,
-        "end_time": None
     }
 
-    tokens.append(new_token)
+    save_token(token_data)
 
-    return {
-        "token": current_token,
-        "name": data.name,
-        "mobile": data.mobile,
-        "location": data.location,
-        "service": data.service,
-        "status": "waiting",
-        "message": "Token created successfully"
-    }
+    return token_data
+
+
+def get_tokens():
+    return get_all_tokens()
+
+
+def get_single_token(token_number: int):
+    return get_token(token_number)
+
+
+def update_token_status(token_number: int, status: str):
+    token = get_token(token_number)
+
+    if not token:
+        return None
+
+    token["status"] = status
+    update_token(token_number, token)
+
+    return token
+
+
+def remove_token(token_number: int):
+    token = get_token(token_number)
+
+    if not token:
+        return None
+
+    delete_token(token_number)
+
+    return token

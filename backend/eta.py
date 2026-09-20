@@ -1,14 +1,11 @@
-from token_manager import tokens
+from token_manager import get_tokens, get_single_token
 from queue_manager import service_times
 
 
 def get_eta(token: int):
-    target_token = None
+    tokens = get_tokens()
 
-    for t in tokens:
-        if t["token"] == token:
-            target_token = t
-            break
+    target_token = get_single_token(token)
 
     if target_token is None:
         return {"error": "Token not found"}
@@ -18,7 +15,8 @@ def get_eta(token: int):
             "token": token,
             "people_ahead": 0,
             "average_service_time": 0,
-            "eta_minutes": 0
+            "eta_minutes": 0,
+            "status": target_token["status"]
         }
 
     if target_token["status"] == "serving":
@@ -37,11 +35,11 @@ def get_eta(token: int):
 
     people_ahead = 0
 
-    for t in tokens:
-        if t["token"] == token:
+    for current_token in tokens:
+        if int(current_token["token"]) == token:
             break
 
-        if t["status"] == "waiting":
+        if current_token["status"] == "waiting":
             people_ahead += 1
 
     if service_times:
@@ -49,12 +47,10 @@ def get_eta(token: int):
     else:
         average_service_time = 5
 
-    currently_serving = False
-
-    for t in tokens:
-        if t["status"] == "serving":
-            currently_serving = True
-            break
+    currently_serving = any(
+        current_token["status"] == "serving"
+        for current_token in tokens
+    )
 
     if currently_serving:
         estimated_services = people_ahead + 1

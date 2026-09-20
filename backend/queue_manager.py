@@ -1,10 +1,12 @@
-from token_manager import tokens
+from token_manager import get_tokens, get_single_token, update_token_status
 
 
 service_times = []
 
 
 def get_queue():
+    tokens = get_tokens()
+
     waiting_tokens = []
     current_serving = None
 
@@ -15,6 +17,8 @@ def get_queue():
         elif token["status"] == "serving":
             current_serving = token
 
+    waiting_tokens.sort(key=lambda x: int(x["token"]))
+
     return {
         "current_serving": current_serving,
         "waiting_tokens": waiting_tokens,
@@ -23,20 +27,20 @@ def get_queue():
 
 
 def leave_queue(token: int):
-    for t in tokens:
-        if t["token"] == token:
+    token_data = get_single_token(token)
 
-            if t["status"] != "waiting":
-                return {
-                    "error": "Token cannot leave queue",
-                    "status": t["status"]
-                }
+    if not token_data:
+        return {"error": "Token not found"}
 
-            t["status"] = "left"
+    if token_data["status"] != "waiting":
+        return {
+            "error": "Token cannot leave queue",
+            "status": token_data["status"]
+        }
 
-            return {
-                "message": "Left the queue",
-                "token": token
-            }
+    update_token_status(token, "left")
 
-    return {"error": "Token not found"}
+    return {
+        "message": "Left the queue",
+        "token": token
+    }

@@ -25,9 +25,13 @@ function selectLanguage(language) {
     });
 
     if (language === "en") {
-        languageButtons[0].classList.add("active");
+        if (languageButtons[0]) {
+            languageButtons[0].classList.add("active");
+        }
     } else {
-        languageButtons[1].classList.add("active");
+        if (languageButtons[1]) {
+            languageButtons[1].classList.add("active");
+        }
     }
 
     setTimeout(() => {
@@ -62,37 +66,57 @@ function updateLanguageText() {
 
     if (selectedLanguage === "hi") {
 
-        homeTitle.innerHTML =
-            "इंतज़ार मत करें।<br>अपनी बारी जानें।";
+        if (homeTitle) {
+            homeTitle.innerHTML =
+                "इंतज़ार मत करें।<br>अपनी बारी जानें।";
+        }
 
-        homeDescription.innerText =
-            "डिजिटल टोकन लें, अपनी कतार ट्रैक करें और जानें कि आपकी बारी कब आएगी।";
+        if (homeDescription) {
+            homeDescription.innerText =
+                "डिजिटल टोकन लें, अपनी कतार ट्रैक करें और जानें कि आपकी बारी कब आएगी।";
+        }
 
-        citizenButton.innerHTML =
-            '<span class="button-icon">●</span> मैं नागरिक हूँ <span>→</span>';
+        if (citizenButton) {
+            citizenButton.innerHTML =
+                '<span class="button-icon">●</span> मैं नागरिक हूँ <span>→</span>';
+        }
 
-        staffButton.innerHTML =
-            '<span class="button-icon">◉</span> मैं स्टाफ हूँ <span>→</span>';
+        if (staffButton) {
+            staffButton.innerHTML =
+                '<span class="button-icon">◉</span> मैं स्टाफ हूँ <span>→</span>';
+        }
 
-        languageButton.innerHTML =
-            "⇄ &nbsp; भाषा बदलें";
+        if (languageButton) {
+            languageButton.innerHTML =
+                "⇄ &nbsp; भाषा बदलें";
+        }
 
     } else {
 
-        homeTitle.innerHTML =
-            "Don't wait.<br>Know your turn.";
+        if (homeTitle) {
+            homeTitle.innerHTML =
+                "Don't wait.<br>Know your turn.";
+        }
 
-        homeDescription.innerText =
-            "Get a digital token, track your queue, and know when it's your turn.";
+        if (homeDescription) {
+            homeDescription.innerText =
+                "Get a digital token, track your queue, and know when it's your turn.";
+        }
 
-        citizenButton.innerHTML =
-            '<span class="button-icon">●</span> I\'m a Citizen <span>→</span>';
+        if (citizenButton) {
+            citizenButton.innerHTML =
+                '<span class="button-icon">●</span> I\'m a Citizen <span>→</span>';
+        }
 
-        staffButton.innerHTML =
-            '<span class="button-icon">◉</span> I\'m Staff <span>→</span>';
+        if (staffButton) {
+            staffButton.innerHTML =
+                '<span class="button-icon">◉</span> I\'m Staff <span>→</span>';
+        }
 
-        languageButton.innerHTML =
-            "⇄ &nbsp; Change Language";
+        if (languageButton) {
+            languageButton.innerHTML =
+                "⇄ &nbsp; Change Language";
+        }
     }
 }
 
@@ -173,6 +197,10 @@ function goHome() {
         "waitlessRole"
     );
 
+    clearCitizenToken();
+
+    currentServingToken = null;
+
     showScreen("homeScreen");
 }
 
@@ -188,6 +216,10 @@ function updateServices() {
 
     const serviceSelect =
         document.getElementById("serviceSelect");
+
+    if (!serviceSelect) {
+        return;
+    }
 
     serviceSelect.innerHTML = "";
 
@@ -317,10 +349,29 @@ function getServiceName(service) {
 // TOKEN FORMAT
 // =====================================================
 
+function normalizeToken(token) {
+
+    const number =
+        Number(token);
+
+    if (!Number.isFinite(number)) {
+        return null;
+    }
+
+    return number;
+}
+
+
 function formatToken(token) {
 
-    return `A-${String(token).padStart(3, "0")}`;
+    const normalizedToken =
+        normalizeToken(token);
 
+    if (normalizedToken === null) {
+        return "—";
+    }
+
+    return `A-${String(normalizedToken).padStart(3, "0")}`;
 }
 
 
@@ -330,9 +381,16 @@ function formatToken(token) {
 
 function saveCitizenToken(token, name) {
 
+    const normalizedToken =
+        normalizeToken(token);
+
+    if (normalizedToken === null) {
+        return;
+    }
+
     localStorage.setItem(
         "waitlessCitizenToken",
-        String(token)
+        String(normalizedToken)
     );
 
     localStorage.setItem(
@@ -364,8 +422,20 @@ function loadSavedCitizenToken() {
     }
 
 
+    const normalizedToken =
+        normalizeToken(savedToken);
+
+
+    if (normalizedToken === null) {
+
+        clearCitizenToken();
+
+        return false;
+    }
+
+
     currentCitizenToken =
-        Number(savedToken);
+        normalizedToken;
 
     currentCitizenName =
         savedName || "";
@@ -427,26 +497,68 @@ function clearCitizenToken() {
 
 
 // =====================================================
+// API ERROR HELPER
+// =====================================================
+
+async function getResponseData(response) {
+
+    const contentType =
+        response.headers.get("content-type") || "";
+
+    if (
+        contentType.includes("application/json")
+    ) {
+
+        return await response.json();
+    }
+
+    const text =
+        await response.text();
+
+    return {
+        error: text || "Unknown server response."
+    };
+}
+
+
+// =====================================================
 // CREATE TOKEN
 // =====================================================
 
 async function getToken() {
 
+    const nameInput =
+        document.getElementById("nameInput");
+
+    const mobileInput =
+        document.getElementById("mobileInput");
+
+    const locationSelect =
+        document.getElementById("locationSelect");
+
+    const serviceSelect =
+        document.getElementById("serviceSelect");
+
+
     const name =
-        document.getElementById("nameInput")
-            .value.trim();
+        nameInput
+            ? nameInput.value.trim()
+            : "";
 
     const mobile =
-        document.getElementById("mobileInput")
-            .value.trim();
+        mobileInput
+            ? mobileInput.value.trim()
+            : "";
 
     const location =
-        document.getElementById("locationSelect")
-            .value;
+        locationSelect
+            ? locationSelect.value
+            : "";
 
     const service =
-        document.getElementById("serviceSelect")
-            .value;
+        serviceSelect
+            ? serviceSelect.value
+            : "";
 
 
     if (!name) {
@@ -499,7 +611,6 @@ async function getToken() {
                     body: JSON.stringify({
                         name: name,
                         mobile: mobile,
-                        location: location,
                         service: service
                     })
                 }
@@ -507,7 +618,7 @@ async function getToken() {
 
 
         const data =
-            await response.json();
+            await getResponseData(response);
 
 
         if (!response.ok) {
@@ -522,19 +633,38 @@ async function getToken() {
         }
 
 
+        const normalizedToken =
+            normalizeToken(data.token);
+
+
+        if (normalizedToken === null) {
+
+            console.error(
+                "Invalid token returned by backend:",
+                data
+            );
+
+            alert(
+                "Backend returned an invalid token."
+            );
+
+            return;
+        }
+
+
         currentCitizenToken =
-            data.token;
+            normalizedToken;
 
         currentCitizenName =
-            data.name;
+            data.name || name;
 
         turnNotificationShown = false;
         nearTurnNotificationShown = false;
 
 
         saveCitizenToken(
-            data.token,
-            data.name
+            normalizedToken,
+            currentCitizenName
         );
 
 
@@ -555,14 +685,25 @@ async function getToken() {
         showScreen("queueScreen");
 
 
-        document.getElementById("tokenNumber")
-            .innerText =
-            formatToken(data.token);
+        const tokenNumber =
+            document.getElementById("tokenNumber");
+
+        const citizenName =
+            document.getElementById("citizenName");
 
 
-        document.getElementById("citizenName")
-            .innerText =
-            data.name;
+        if (tokenNumber) {
+
+            tokenNumber.innerText =
+                formatToken(normalizedToken);
+        }
+
+
+        if (citizenName) {
+
+            citizenName.innerText =
+                currentCitizenName;
+        }
 
 
         await updateCitizenQueueInfo();
@@ -570,11 +711,15 @@ async function getToken() {
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Token creation error:",
+            error
+        );
 
         alert(
-            "Cannot connect to WaitLess backend. " +
-            "Please make sure the backend is running."
+            "Cannot connect to WaitLess backend.\n\n" +
+            "Please make sure the backend is running at:\n" +
+            API_URL
         );
     }
 }
@@ -590,12 +735,27 @@ async function loadQueue() {
 
         const response =
             await fetch(
-                `${API_URL}/queue`
+                `${API_URL}/queue`,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
             );
 
 
+        if (!response.ok) {
+
+            console.error(
+                "Queue API error:",
+                response.status
+            );
+
+            return null;
+        }
+
+
         const data =
-            await response.json();
+            await getResponseData(response);
 
 
         return data;
@@ -630,13 +790,28 @@ function updateNowServing(currentServing) {
 
     if (currentServing) {
 
-        nowServing.innerText =
-            formatToken(
+        const normalizedToken =
+            normalizeToken(
                 currentServing.token
             );
 
-        currentServingToken =
-            currentServing.token;
+
+        if (normalizedToken !== null) {
+
+            nowServing.innerText =
+                formatToken(normalizedToken);
+
+            currentServingToken =
+                normalizedToken;
+
+        } else {
+
+            nowServing.innerText =
+                "—";
+
+            currentServingToken =
+                null;
+        }
 
     } else {
 
@@ -674,17 +849,49 @@ async function updateCitizenQueueInfo() {
         }
 
 
-        const response =
-            await fetch(
-                `${API_URL}/eta/${currentCitizenToken}`
+        const normalizedToken =
+            normalizeToken(
+                currentCitizenToken
             );
 
 
+        if (normalizedToken === null) {
+            return;
+        }
+
+
+        const response =
+            await fetch(
+                `${API_URL}/eta/${normalizedToken}`,
+                {
+                    method: "GET",
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            console.error(
+                "ETA API error:",
+                response.status
+            );
+
+            return;
+        }
+
+
         const data =
-            await response.json();
+            await getResponseData(response);
 
 
         if (data.error) {
+
+            console.error(
+                "ETA error:",
+                data.error
+            );
+
             return;
         }
 
@@ -732,21 +939,21 @@ async function updateCitizenQueueInfo() {
         if (peopleAhead) {
 
             peopleAhead.innerText =
-                data.people_ahead;
+                data.people_ahead ?? 0;
         }
 
 
         if (peopleAheadText) {
 
             peopleAheadText.innerText =
-                `${data.people_ahead} people ahead`;
+                `${data.people_ahead ?? 0} people ahead`;
         }
 
 
         if (waitTime) {
 
             waitTime.innerText =
-                `${data.eta_minutes} min`;
+                `${data.eta_minutes ?? 0} min`;
         }
 
 
@@ -801,6 +1008,26 @@ async function updateCitizenQueueInfo() {
             sendTurnNotification();
 
 
+        } else if (
+            data.status === "completed" ||
+            data.status === "skipped" ||
+            data.status === "left"
+        ) {
+
+            if (queueSuccess) {
+
+                queueSuccess.innerText =
+                    "Queue status updated";
+            }
+
+
+            if (queueStatus) {
+
+                queueStatus.innerText =
+                    `Token status: ${data.status}`;
+            }
+
+
         } else {
 
             // =========================================
@@ -850,7 +1077,7 @@ async function updateCitizenQueueInfo() {
 
 
             if (
-                data.people_ahead === 1 &&
+                Number(data.people_ahead) === 1 &&
                 !nearTurnNotificationShown
             ) {
 
@@ -1004,11 +1231,27 @@ async function leaveQueue() {
     }
 
 
+    const normalizedToken =
+        normalizeToken(
+            currentCitizenToken
+        );
+
+
+    if (normalizedToken === null) {
+
+        alert(
+            "Invalid citizen token."
+        );
+
+        return;
+    }
+
+
     try {
 
         const response =
             await fetch(
-                `${API_URL}/queue/leave?token=${currentCitizenToken}`,
+                `${API_URL}/queue/leave?token=${normalizedToken}`,
                 {
                     method: "POST"
                 }
@@ -1016,7 +1259,19 @@ async function leaveQueue() {
 
 
         const data =
-            await response.json();
+            await getResponseData(response);
+
+
+        if (!response.ok) {
+
+            alert(
+                data.detail ||
+                data.error ||
+                "Unable to leave the queue."
+            );
+
+            return;
+        }
 
 
         if (data.error) {
@@ -1033,13 +1288,27 @@ async function leaveQueue() {
 
         clearCitizenToken();
 
+        stopQueueAutoRefresh();
 
-        goHome();
+
+        sessionStorage.removeItem(
+            "waitlessRole"
+        );
+
+        localStorage.removeItem(
+            "waitlessRole"
+        );
+
+
+        showScreen("homeScreen");
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Leave queue error:",
+            error
+        );
 
         alert(
             "Unable to connect to the backend."
@@ -1054,10 +1323,15 @@ async function leaveQueue() {
 
 function staffLogin() {
 
-    const password =
+    const passwordElement =
         document.getElementById(
             "staffPassword"
-        ).value;
+        );
+
+    const password =
+        passwordElement
+            ? passwordElement.value
+            : "";
 
 
     if (!password) {
@@ -1131,18 +1405,18 @@ async function renderStaffQueue() {
         if (waitingCount) {
 
             waitingCount.innerText =
-                `${data.people_waiting} people waiting`;
+                `${data.people_waiting ?? 0} people waiting`;
         }
 
 
         if (data.current_serving) {
 
-            const currentToken =
+            const currentTokenElement =
                 document.getElementById(
                     "currentToken"
                 );
 
-            const currentCitizenName =
+            const currentCitizenNameElement =
                 document.getElementById(
                     "currentCitizenName"
                 );
@@ -1153,33 +1427,80 @@ async function renderStaffQueue() {
                 );
 
 
-            if (currentToken) {
+            const normalizedToken =
+                normalizeToken(
+                    data.current_serving.token
+                );
 
-                currentToken.innerText =
+
+            currentServingToken =
+                normalizedToken;
+
+
+            if (currentTokenElement) {
+
+                currentTokenElement.innerText =
                     formatToken(
-                        data.current_serving.token
+                        normalizedToken
                     );
             }
 
 
-            if (currentCitizenName) {
+            if (currentCitizenNameElement) {
 
-                currentCitizenName.innerText =
-                    data.current_serving.name;
+                currentCitizenNameElement.innerText =
+                    data.current_serving.name || "";
             }
 
 
             if (currentCitizenMobile) {
 
                 currentCitizenMobile.innerText =
-                    `📱 ${data.current_serving.mobile}`;
+                    data.current_serving.mobile
+                        ? `📱 ${data.current_serving.mobile}`
+                        : "";
             }
 
 
-            currentServingToken =
-                data.current_serving.token;
+            const nextButton =
+                document.getElementById(
+                    "nextButton"
+                );
+
+            const completeButton =
+                document.getElementById(
+                    "completeButton"
+                );
+
+            const skipButton =
+                document.getElementById(
+                    "skipButton"
+                );
+
+
+            if (nextButton) {
+
+                nextButton.style.display =
+                    "none";
+            }
+
+
+            if (completeButton) {
+
+                completeButton.style.display =
+                    "flex";
+            }
+
+
+            if (skipButton) {
+
+                skipButton.style.display =
+                    "flex";
+            }
 
         } else {
+
+            currentServingToken = null;
 
             resetStaffButtons();
         }
@@ -1314,7 +1635,19 @@ async function callNext() {
 
 
         const data =
-            await response.json();
+            await getResponseData(response);
+
+
+        if (!response.ok) {
+
+            alert(
+                data.detail ||
+                data.error ||
+                "Unable to call next token."
+            );
+
+            return;
+        }
 
 
         if (
@@ -1337,8 +1670,24 @@ async function callNext() {
         }
 
 
+        const normalizedToken =
+            normalizeToken(
+                data.token
+            );
+
+
+        if (normalizedToken === null) {
+
+            alert(
+                "Backend returned an invalid token."
+            );
+
+            return;
+        }
+
+
         currentServingToken =
-            data.token;
+            normalizedToken;
 
 
         const currentToken =
@@ -1347,7 +1696,7 @@ async function callNext() {
             );
 
 
-        const currentCitizenName =
+        const currentCitizenNameElement =
             document.getElementById(
                 "currentCitizenName"
             );
@@ -1363,22 +1712,24 @@ async function callNext() {
 
             currentToken.innerText =
                 formatToken(
-                    data.token
+                    normalizedToken
                 );
         }
 
 
-        if (currentCitizenName) {
+        if (currentCitizenNameElement) {
 
-            currentCitizenName.innerText =
-                data.name;
+            currentCitizenNameElement.innerText =
+                data.name || "";
         }
 
 
         if (currentCitizenMobile) {
 
             currentCitizenMobile.innerText =
-                `📱 ${data.mobile}`;
+                data.mobile
+                    ? `📱 ${data.mobile}`
+                    : "";
         }
 
 
@@ -1423,12 +1774,13 @@ async function callNext() {
 
         await renderStaffQueue();
 
-        await updateCitizenQueueInfo();
-
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Call next error:",
+            error
+        );
 
         alert(
             "Unable to call next token."
@@ -1453,11 +1805,27 @@ async function completeToken() {
     }
 
 
+    const tokenBeingCompleted =
+        normalizeToken(
+            currentServingToken
+        );
+
+
+    if (tokenBeingCompleted === null) {
+
+        alert(
+            "Invalid serving token."
+        );
+
+        return;
+    }
+
+
     try {
 
         const response =
             await fetch(
-                `${API_URL}/queue/complete?token=${currentServingToken}`,
+                `${API_URL}/queue/complete?token=${tokenBeingCompleted}`,
                 {
                     method: "POST"
                 }
@@ -1465,7 +1833,19 @@ async function completeToken() {
 
 
         const data =
-            await response.json();
+            await getResponseData(response);
+
+
+        if (!response.ok) {
+
+            alert(
+                data.detail ||
+                data.error ||
+                "Unable to complete token."
+            );
+
+            return;
+        }
 
 
         if (data.error) {
@@ -1477,26 +1857,27 @@ async function completeToken() {
 
         alert(
             `Token ${formatToken(
-                currentServingToken
+                tokenBeingCompleted
             )} completed.`
         );
-
-
-        resetStaffButtons();
 
 
         currentServingToken =
             null;
 
 
-        await renderStaffQueue();
+        resetStaffButtons();
 
-        await updateCitizenQueueInfo();
+
+        await renderStaffQueue();
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Complete token error:",
+            error
+        );
 
         alert(
             "Unable to complete token."
@@ -1521,10 +1902,26 @@ async function skipToken() {
     }
 
 
+    const tokenBeingSkipped =
+        normalizeToken(
+            currentServingToken
+        );
+
+
+    if (tokenBeingSkipped === null) {
+
+        alert(
+            "Invalid serving token."
+        );
+
+        return;
+    }
+
+
     const confirmSkip =
         confirm(
             `Skip token ${formatToken(
-                currentServingToken
+                tokenBeingSkipped
             )}?`
         );
 
@@ -1538,7 +1935,7 @@ async function skipToken() {
 
         const response =
             await fetch(
-                `${API_URL}/queue/skip?token=${currentServingToken}`,
+                `${API_URL}/queue/skip?token=${tokenBeingSkipped}`,
                 {
                     method: "POST"
                 }
@@ -1546,7 +1943,19 @@ async function skipToken() {
 
 
         const data =
-            await response.json();
+            await getResponseData(response);
+
+
+        if (!response.ok) {
+
+            alert(
+                data.detail ||
+                data.error ||
+                "Unable to skip token."
+            );
+
+            return;
+        }
 
 
         if (data.error) {
@@ -1558,26 +1967,27 @@ async function skipToken() {
 
         alert(
             `Token ${formatToken(
-                currentServingToken
+                tokenBeingSkipped
             )} skipped.`
         );
-
-
-        resetStaffButtons();
 
 
         currentServingToken =
             null;
 
 
-        await renderStaffQueue();
+        resetStaffButtons();
 
-        await updateCitizenQueueInfo();
+
+        await renderStaffQueue();
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Skip token error:",
+            error
+        );
 
         alert(
             "Unable to skip token."
@@ -1637,7 +2047,7 @@ function resetStaffButtons() {
         );
 
 
-    const currentCitizenName =
+    const currentCitizenNameElement =
         document.getElementById(
             "currentCitizenName"
         );
@@ -1656,9 +2066,9 @@ function resetStaffButtons() {
     }
 
 
-    if (currentCitizenName) {
+    if (currentCitizenNameElement) {
 
-        currentCitizenName.innerText =
+        currentCitizenNameElement.innerText =
             "No citizen currently being served";
     }
 

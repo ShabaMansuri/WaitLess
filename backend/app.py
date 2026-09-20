@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from token_manager import TokenRequest, create_token
+from token_manager import TokenRequest, create_token, get_tokens, get_single_token
 from queue_manager import get_queue, leave_queue
 from eta import get_eta
 from staff import next_token, complete_token, skip_token
@@ -30,6 +30,21 @@ def home():
 @app.post("/token")
 def token_endpoint(data: TokenRequest):
     return create_token(data)
+
+
+@app.get("/tokens")
+def tokens_endpoint():
+    return get_tokens()
+
+
+@app.get("/token/{token}")
+def single_token_endpoint(token: int):
+    token_data = get_single_token(token)
+
+    if token_data is None:
+        return {"error": "Token not found"}
+
+    return token_data
 
 
 @app.get("/queue")
